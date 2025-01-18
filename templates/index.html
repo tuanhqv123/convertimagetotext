@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image to Text Converter</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="theme-switch">
+      <button id="themeToggle" class="theme-btn" type="button">
+        <span class="light-icon">☀️</span>
+        <span class="dark-icon">🌙</span>
+      </button>
+    </div>
+    <div class="container">
+      <h1>Image to Text Converter</h1>
+
+      <div class="upload-section">
+        <div class="input-header">
+          <h2>Choose one method:</h2>
+          <button class="refresh-btn" id="refreshAll">⟳</button>
+        </div>
+
+        <div class="file-upload">
+          <div class="input-group">
+            <input type="file" id="fileInput" accept="image/*" />
+            <label for="fileInput" class="upload-btn">Choose File</label>
+          </div>
+          <p id="fileName"></p>
+        </div>
+
+        <div class="url-input">
+          <div class="input-group">
+            <input
+              type="text"
+              id="urlInput"
+              placeholder="Or paste image URL here"
+            />
+          </div>
+        </div>
+
+        <button id="convertBtn" class="convert-btn">Convert to Text</button>
+      </div>
+
+      <div class="result-section">
+        <div class="result-header">
+          <h2>Result</h2>
+          <button id="copyBtn" class="copy-btn">Copy Text</button>
+        </div>
+        <div class="loader" id="loader"></div>
+        <textarea id="resultText" readonly></textarea>
+      </div>
+    </div>
+
+    <script>
+      // Ensure theme is set before any rendering
+      (function () {
+        const theme =
+          localStorage.getItem("theme") ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        document.body.setAttribute("data-theme", theme);
+      })();
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
