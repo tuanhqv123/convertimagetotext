@@ -3,6 +3,10 @@ services:
     name: image-to-text-converter
     env: python
     buildCommand: |
+      apt-get update
+      apt-get install -y tesseract-ocr
+      apt-get install -y tesseract-ocr-vie
+      apt-get install -y libtesseract-dev
       pip install --upgrade pip
       pip install -r requirements.txt
     startCommand: gunicorn app:app
@@ -11,7 +15,5 @@ services:
         value: 3.9.0
       - key: FLASK_ENV
         value: production
-    packages:
-      - tesseract-ocr
-      - libtesseract-dev
-      - tesseract-ocr-vie
+      - key: PYTHONPATH
+        value: /opt/render/project/src
