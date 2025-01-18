@@ -1,9 +1,17 @@
 services:
   - type: web
-    name: image-to-text
+    name: image-to-text-converter
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
+      - key: FLASK_ENV
+        value: production
+    packages:
+      - tesseract-ocr
+      - libtesseract-dev
+      - tesseract-ocr-vie
